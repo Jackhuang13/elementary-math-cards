@@ -1,0 +1,6 @@
+{
+  "name": "國小直式數學小卡冒險",
+  "description": "專為國小學童設計的直式加減法冒險！視覺化進位與借位標記、遇0跨位連續借位教學、步驟防呆引導與全動態解題回放。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
