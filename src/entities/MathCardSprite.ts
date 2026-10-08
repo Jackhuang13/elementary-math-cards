@@ -360,6 +360,7 @@ export class MathCardSprite extends AnimatedSprite {
     ctx.fill();
 
     // Card Progress Tag
+    if ('letterSpacing' in ctx) (ctx as any).letterSpacing = '1.5px';
     ctx.font = 'bold 15px "Fredoka", "Bpmf Huninn", "Noto Sans TC", sans-serif';
     ctx.fillStyle = '#64748b';
     ctx.textAlign = 'left';
@@ -387,6 +388,7 @@ export class MathCardSprite extends AnimatedSprite {
 
   private drawColumnHeaders(ctx: CanvasRenderingContext2D) {
     ctx.save();
+    if ('letterSpacing' in ctx) (ctx as any).letterSpacing = '1px';
     ctx.font = 'bold 14px "Bpmf Huninn", "Noto Sans TC", sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';

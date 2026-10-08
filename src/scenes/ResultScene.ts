@@ -95,6 +95,7 @@ export class ResultScene extends Scene {
     ctx.fillText('🏆', cx, 44);
 
     // Title
+    if ('letterSpacing' in ctx) (ctx as any).letterSpacing = '1.5px';
     ctx.font = '900 22px "Bpmf Huninn", "Noto Sans TC", sans-serif';
     ctx.fillStyle = '#1e293b';
     ctx.fillText('冒險大成功！', cx, 84);

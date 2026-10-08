@@ -149,13 +149,13 @@ export const ReplayModal: React.FC<ReplayModalProps> = ({ problem, onClose }) =>
   const activeColumns = renderedState();
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/80 backdrop-blur-md p-2 sm:p-4 animate-in fade-in font-['Bpmf_Huninn']">
-      <div className="w-full max-w-sm sm:max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col border-4 border-amber-300 max-h-[92vh] font-['Bpmf_Huninn']">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/80 backdrop-blur-md p-2 sm:p-4 animate-in fade-in font-bpmf">
+      <div className="w-[94%] max-w-sm sm:max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col border-4 border-amber-300 max-h-[92vh] font-bpmf">
         {/* Header */}
-        <div className="bg-gradient-to-r from-amber-500 to-orange-500 px-4 sm:px-5 py-2.5 sm:py-3 text-white flex items-center justify-between">
+        <div className="bg-gradient-to-r from-amber-500 to-orange-500 px-4 sm:px-5 py-2.5 sm:py-3 text-white flex items-center justify-between font-bpmf">
           <div className="flex items-center gap-2">
             <Film className="w-4 h-4 sm:w-5 sm:h-5 text-amber-200" />
-            <h3 className="font-bold text-base sm:text-lg">🎬 直式解題小老師</h3>
+            <h3 className="font-bold text-base sm:text-lg tracking-zhuyin">🎬 直式解題小老師</h3>
           </div>
           <button
             onClick={onClose}
@@ -352,10 +352,10 @@ export const ReplayModal: React.FC<ReplayModalProps> = ({ problem, onClose }) =>
         </div>
 
         {/* Controls Footer */}
-        <div className="px-3 sm:px-4 py-2 sm:py-3 bg-white border-t border-slate-200 flex items-center justify-between font-['Bpmf_Huninn']">
+        <div className="px-3 sm:px-4 py-2 sm:py-3 bg-white border-t border-slate-200 flex items-center justify-between font-bpmf">
           <button
             onClick={handleRestart}
-            className="flex items-center gap-1 text-xs font-bold text-slate-600 hover:text-slate-900 p-1.5 rounded-xl hover:bg-slate-100 cursor-pointer font-['Bpmf_Huninn']"
+            className="flex items-center gap-1 text-xs sm:text-sm font-bold text-slate-600 hover:text-slate-900 p-1.5 rounded-xl hover:bg-slate-100 cursor-pointer font-bpmf tracking-zhuyin"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             重播
@@ -388,7 +388,7 @@ export const ReplayModal: React.FC<ReplayModalProps> = ({ problem, onClose }) =>
 
           <button
             onClick={onClose}
-            className="bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl flex items-center gap-1 shadow-sm shadow-emerald-500/20 cursor-pointer font-['Bpmf_Huninn']"
+            className="bg-emerald-500 hover:bg-emerald-600 text-white text-xs sm:text-sm font-bold px-3 py-1.5 sm:py-2 rounded-xl flex items-center gap-1 shadow-sm shadow-emerald-500/20 cursor-pointer font-bpmf tracking-zhuyin"
           >
             <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             我懂了！

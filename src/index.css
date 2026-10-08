@@ -1,10 +1,33 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Bpmf Huninn';
+  font-style: normal;
+  font-weight: 100 900;
+  src: url('https://fonts.gstatic.com/s/bpmfhuninn/v7/taiOGmRuFJa3qsALi5gn1K6o.ttf') format('truetype');
+  font-display: swap;
+}
+
 @layer base {
   body {
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
     user-select: none;
     font-family: "Bpmf Huninn", "Noto Sans TC", "Fredoka", system-ui, -apple-system, sans-serif;
+    letter-spacing: 0.08em;
+  }
+
+  button, input, select, textarea, span, p, h1, h2, h3, h4, h5, h6, div {
+    font-family: "Bpmf Huninn", "Noto Sans TC", "Fredoka", system-ui, -apple-system, sans-serif;
+    letter-spacing: 0.08em;
   }
 }
+
+.font-bpmf {
+  font-family: "Bpmf Huninn", "Noto Sans TC", "Fredoka", system-ui, -apple-system, sans-serif !important;
+}
+
+.tracking-zhuyin {
+  letter-spacing: 0.09em !important;
+}
+

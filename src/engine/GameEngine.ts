@@ -75,22 +75,26 @@ export class GameEngine {
     this.canvas.height = Math.round(rect.height * dpr);
 
     const cur = this.sceneManager.getCurrentScene();
-    let vw = 400;
-    let vh = 330;
+    let baseVw = 390;
+    let minVh = 325;
 
     if (cur?.name === 'menu') {
-      vw = 400;
-      vh = 620;
+      baseVw = 400;
+      minVh = 600;
     } else if (cur?.name === 'result') {
-      vw = 400;
-      vh = 580;
+      baseVw = 400;
+      minVh = 560;
     }
 
-    // Uniform scale preserving 1:1 pixel aspect ratio (no squishing/stretching)
-    const scale = Math.min(rect.width / vw, rect.height / vh);
+    // Responsive World Coordinates: scale ensures minimum design bounds fit
+    const scale = Math.min(rect.width / baseVw, rect.height / minVh);
     this.scale = scale;
-    this.offsetX = Math.round((rect.width - vw * scale) / 2);
-    this.offsetY = Math.round((rect.height - vh * scale) / 2);
+
+    // World dimensions expand dynamically to match the viewport aspect ratio
+    const vw = Math.round(rect.width / scale);
+    const vh = Math.round(rect.height / scale);
+    this.offsetX = 0;
+    this.offsetY = 0;
     this.virtualWidth = vw;
     this.virtualHeight = vh;
   }
@@ -101,7 +105,7 @@ export class GameEngine {
       const cssX = e.clientX - rect.x;
       const cssY = e.clientY - rect.y;
 
-      // Map from CSS pixels into virtual design space
+      // Map from CSS pixels into virtual world coordinates
       const virtualX = (cssX - this.offsetX) / this.scale;
       const virtualY = (cssY - this.offsetY) / this.scale;
 
@@ -157,30 +161,31 @@ export class GameEngine {
     this.ctx.clearRect(0, 0, this.clientWidth, this.clientHeight);
 
     const cur = this.sceneManager.getCurrentScene();
-    let vw = 400;
-    let vh = 330;
+    let baseVw = 390;
+    let minVh = 325;
 
     if (cur?.name === 'menu') {
-      vw = 400;
-      vh = 620;
+      baseVw = 400;
+      minVh = 600;
     } else if (cur?.name === 'result') {
-      vw = 400;
-      vh = 580;
+      baseVw = 400;
+      minVh = 560;
     }
 
-    const scale = Math.min(this.clientWidth / vw, this.clientHeight / vh);
+    const scale = Math.min(this.clientWidth / baseVw, this.clientHeight / minVh);
     this.scale = scale;
-    this.offsetX = Math.round((this.clientWidth - vw * scale) / 2);
-    this.offsetY = Math.round((this.clientHeight - vh * scale) / 2);
+    const vw = Math.round(this.clientWidth / scale);
+    const vh = Math.round(this.clientHeight / scale);
+    this.offsetX = 0;
+    this.offsetY = 0;
     this.virtualWidth = vw;
     this.virtualHeight = vh;
 
     this.ctx.save();
-    // Apply virtual coordinate transform with centering
-    this.ctx.translate(this.offsetX, this.offsetY);
+    // Apply virtual coordinate scale (0, 0 matches canvas top-left, vw, vh matches canvas bottom-right)
     this.ctx.scale(this.scale, this.scale);
 
-    // Render active scene in virtual coords
+    // Render active scene in responsive virtual world coords
     this.sceneManager.render(this.ctx, vw, vh);
 
     this.ctx.restore();

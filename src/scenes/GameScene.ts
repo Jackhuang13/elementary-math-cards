@@ -100,14 +100,41 @@ export class GameScene extends Scene {
   }
 
   public override render(ctx: CanvasRenderingContext2D, width: number, height: number): void {
-    // Keep card centered in virtual dimensions
+    // Keep card centered in responsive world coordinates
     if (this.cardSprite) {
       this.cardSprite.setPosition(width / 2, height / 2);
+
+      // Gracefully scale card to comfortably utilize available space on 5" phones and tablets
+      const targetScale = Math.min(
+        1.10,
+        Math.max(0.86, Math.min((width - 16) / this.cardSprite.width, (height - 16) / this.cardSprite.height))
+      );
+      this.cardSprite.scaleX = targetScale;
+      this.cardSprite.scaleY = targetScale;
     }
 
-    // Canvas background
+    // Canvas background - fills 100% of the world coordinates
     ctx.fillStyle = '#f8fafc';
     ctx.fillRect(0, 0, width, height);
+
+    // Light math notebook grid pattern in background
+    ctx.save();
+    ctx.strokeStyle = 'rgba(226, 232, 240, 0.45)';
+    ctx.lineWidth = 1;
+    const gridSize = 24;
+    for (let x = gridSize; x < width; x += gridSize) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, height);
+      ctx.stroke();
+    }
+    for (let y = gridSize; y < height; y += gridSize) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(width, y);
+      ctx.stroke();
+    }
+    ctx.restore();
 
     // Warm classroom wood / notebook top border
     ctx.fillStyle = '#fef3c7';
@@ -125,9 +152,10 @@ export class GameScene extends Scene {
   public override onPointerDown(px: number, py: number): boolean | void {
     if (!this.cardSprite || this.celebratingCard) return;
 
-    // Delegate to card sprite local coordinates
-    const localX = px - this.cardSprite.x;
-    const localY = py - this.cardSprite.y;
+    // Delegate to card sprite local coordinates with scale compensation
+    const scale = this.cardSprite.scaleX || 1;
+    const localX = (px - this.cardSprite.x) / scale;
+    const localY = (py - this.cardSprite.y) / scale;
 
     if (this.cardSprite.hitTest(px, py)) {
       const handled = this.cardSprite.handlePointerDown(localX, localY);

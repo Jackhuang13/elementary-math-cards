@@ -42,9 +42,9 @@ export const HUD: React.FC<HUDProps> = ({
   const timeFormatted = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 
   return (
-    <div className="w-full max-w-md mx-auto pt-1.5 px-2 sm:px-3 pb-1 select-none flex flex-col gap-1.5 z-20">
+    <div className="w-full max-w-md mx-auto pt-1.5 px-2 sm:px-3 pb-1 select-none flex flex-col gap-1.5 z-20 font-bpmf">
       {/* Top Controls Bar */}
-      <div className="flex items-center justify-between gap-1 sm:gap-2 bg-white/95 backdrop-blur-md rounded-2xl px-2 sm:px-3 py-1 sm:py-1.5 shadow-xs border border-amber-200">
+      <div className="flex items-center justify-between gap-1 sm:gap-2 bg-white/95 backdrop-blur-md rounded-2xl px-2 sm:px-3 py-1 sm:py-1.5 shadow-xs border border-amber-200 font-bpmf">
         <button
           onClick={onBackToMenu}
           className="p-1 sm:p-1.5 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-slate-100 transition-colors cursor-pointer shrink-0"
@@ -110,13 +110,13 @@ export const HUD: React.FC<HUDProps> = ({
       </div>
 
       {/* Action Row: Lion Mascot Advice Bubble + Replay Button */}
-      <div className="flex items-stretch gap-1.5 sm:gap-2">
+      <div className="flex items-stretch gap-1.5 sm:gap-2 font-bpmf">
         {/* Dynamic Speech Bubble */}
-        <div className="flex-1 bg-amber-50/95 border border-amber-300 rounded-2xl px-2.5 py-1 sm:py-1.5 shadow-xs flex items-center gap-1.5">
+        <div className="flex-1 bg-amber-50/95 border border-amber-300 rounded-2xl px-2.5 py-1 sm:py-1.5 shadow-xs flex items-center gap-1.5 font-bpmf">
           <div className="w-6 h-6 rounded-full bg-amber-200 text-amber-800 flex items-center justify-center shrink-0 text-xs sm:text-sm font-bold">
             🦁
           </div>
-          <p className="text-[11px] sm:text-xs font-bold text-amber-950 leading-tight line-clamp-2">
+          <p className="text-[11px] sm:text-xs font-bold text-amber-950 leading-tight line-clamp-2 font-bpmf tracking-zhuyin">
             {hintMessage}
           </p>
         </div>
@@ -124,7 +124,7 @@ export const HUD: React.FC<HUDProps> = ({
         {/* Replay Button */}
         <button
           onClick={onOpenReplay}
-          className="bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 active:scale-95 text-white font-bold text-[11px] sm:text-xs px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-2xl shadow-sm flex flex-col items-center justify-center gap-0.5 shrink-0 transition-transform cursor-pointer"
+          className="bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 active:scale-95 text-white font-bold text-[11px] sm:text-xs px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-2xl shadow-sm flex flex-col items-center justify-center gap-0.5 shrink-0 transition-transform cursor-pointer font-bpmf tracking-zhuyin"
         >
           <Film className="w-3.5 h-3.5 text-sky-100" />
           <span>解題回放</span>

@@ -216,6 +216,7 @@ export class MenuScene extends Scene {
 
     // Main Title
     ctx.shadowColor = 'transparent';
+    if ('letterSpacing' in ctx) (ctx as any).letterSpacing = '1.5px';
     ctx.font = `900 ${layout.titleFontSize}px "Bpmf Huninn", "Noto Sans TC", "Fredoka", sans-serif`;
     ctx.fillStyle = '#0f172a';
     ctx.fillText('國小直式數學小卡冒險', cx, layout.titleY);
