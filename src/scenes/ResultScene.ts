@@ -12,13 +12,13 @@ export class ResultScene extends Scene {
   public override readonly name = 'result';
 
   public override virtualWidth: number = 400;
-  public override virtualHeight: number = 520;
+  public override virtualHeight: number = 580;
 
   private progressData: CardProgress | null = null;
   private animTimer: number = 0;
 
-  private restartBtnBounds = { x: 200, y: 395, width: 250, height: 42 };
-  private menuBtnBounds = { x: 200, y: 448, width: 250, height: 38 };
+  private restartBtnBounds = { x: 200, y: 440, width: 250, height: 44 };
+  private menuBtnBounds = { x: 200, y: 500, width: 250, height: 40 };
 
   public override enter(data?: unknown): void {
     this.progressData = data as CardProgress;
@@ -49,8 +49,8 @@ export class ResultScene extends Scene {
     const btnW = Math.min(290, width - 64);
     const restartH = 46;
     const menuH = 40;
-    const mbY = height - menuH / 2 - 20;
-    const rbY = mbY - menuH / 2 - 12 - restartH / 2;
+    const mbY = height - menuH / 2 - 24;
+    const rbY = mbY - menuH / 2 - 14 - restartH / 2;
 
     this.restartBtnBounds = { x: width / 2, y: rbY, width: btnW, height: restartH };
     this.menuBtnBounds = { x: width / 2, y: mbY, width: btnW, height: menuH };
@@ -82,7 +82,7 @@ export class ResultScene extends Scene {
 
     // Glowing circle
     ctx.beginPath();
-    ctx.arc(cx, 40, 24, 0, Math.PI * 2);
+    ctx.arc(cx, 44, 26, 0, Math.PI * 2);
     ctx.fillStyle = '#fef08a';
     ctx.fill();
     ctx.strokeStyle = '#f59e0b';
@@ -92,16 +92,16 @@ export class ResultScene extends Scene {
     ctx.font = '28px "Fredoka", sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText('🏆', cx, 40);
+    ctx.fillText('🏆', cx, 44);
 
     // Title
-    ctx.font = '900 20px "Noto Sans TC", sans-serif';
+    ctx.font = '900 22px "Bpmf Huninn", "Noto Sans TC", sans-serif';
     ctx.fillStyle = '#1e293b';
-    ctx.fillText('冒險大通關！', cx, 76);
+    ctx.fillText('冒險大成功！', cx, 84);
 
-    ctx.font = 'bold 11px "Noto Sans TC", sans-serif';
+    ctx.font = 'bold 12px "Bpmf Huninn", "Noto Sans TC", sans-serif';
     ctx.fillStyle = '#059669';
-    ctx.fillText('🎉 恭喜你完成 4 張直式數學小卡挑戰！', cx, 96);
+    ctx.fillText('🎉 你完成了 4 張直式小卡，太棒了！', cx, 106);
 
     ctx.restore();
   }
@@ -109,9 +109,9 @@ export class ResultScene extends Scene {
   private drawStatsCard(ctx: CanvasRenderingContext2D, width: number) {
     ctx.save();
     const cardX = 24;
-    const cardY = 114;
+    const cardY = 126;
     const cardW = width - 48;
-    const cardH = 110;
+    const cardH = 112;
 
     // Card background
     ctx.fillStyle = '#ffffff';
@@ -138,9 +138,9 @@ export class ResultScene extends Scene {
 
     const stats = [
       { label: '通關小卡', value: '4 / 4 張', icon: '📝' },
-      { label: '挑戰耗時', value: timeFormatted, icon: '⏱️' },
+      { label: '挑戰時間', value: timeFormatted, icon: '⏱️' },
       { label: '獲得星星', value: `${totalStars} / 12 ⭐`, icon: '🌟' },
-      { label: '冒險總積分', value: `${this.progressData?.score ?? 400} 分`, icon: '🎯' },
+      { label: '冒險得分', value: `${this.progressData?.score ?? 400} 分`, icon: '🎯' },
     ];
 
     const colW = cardW / 2;
@@ -148,16 +148,16 @@ export class ResultScene extends Scene {
       const row = Math.floor(idx / 2);
       const col = idx % 2;
       const sx = cardX + col * colW + colW / 2;
-      const sy = cardY + 22 + row * 44;
+      const sy = cardY + 24 + row * 44;
 
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
 
-      ctx.font = 'bold 10px "Noto Sans TC", sans-serif';
+      ctx.font = 'bold 11px "Bpmf Huninn", "Noto Sans TC", sans-serif';
       ctx.fillStyle = '#64748b';
       ctx.fillText(`${st.icon} ${st.label}`, sx, sy - 8);
 
-      ctx.font = 'bold 14px "Fredoka", "Noto Sans TC", sans-serif';
+      ctx.font = 'bold 14px "Fredoka", "Bpmf Huninn", "Noto Sans TC", sans-serif';
       ctx.fillStyle = '#0f172a';
       ctx.fillText(st.value, sx, sy + 10);
     });
@@ -167,43 +167,43 @@ export class ResultScene extends Scene {
 
   private drawBadgesSection(ctx: CanvasRenderingContext2D, width: number) {
     ctx.save();
-    ctx.font = 'bold 11px "Noto Sans TC", sans-serif';
+    ctx.font = 'bold 12px "Bpmf Huninn", "Noto Sans TC", sans-serif';
     ctx.fillStyle = '#475569';
     ctx.textAlign = 'left';
-    ctx.fillText('🎖️ 獲得專屬數學勳章：', 28, 240);
+    ctx.fillText('🎖️ 獲得榮譽勳章：', 28, 260);
 
     const mode = this.progressData?.mode || 'grand_master';
     let badges = [
       { title: '全能大師', desc: '4卡全通關', emoji: '👑', bg: '#f3e8ff', border: '#9333ea' },
       { title: '進位神算', desc: '滿十無失誤', emoji: '⚡', bg: '#fef3c7', border: '#f59e0b' },
-      { title: '借位法師', desc: '劃線退位', emoji: '🪄', bg: '#e0f2fe', border: '#0284c7' },
+      { title: '借位法師', desc: '借10好厲害', emoji: '🪄', bg: '#e0f2fe', border: '#0284c7' },
     ];
 
     if (mode === 'basic') {
       badges = [
-        { title: '基底星', desc: '進退位掌握', emoji: '🌱', bg: '#dcfce7', border: '#16a34a' },
-        { title: '進位達人', desc: '標記清晰', emoji: '⚡', bg: '#fef3c7', border: '#f59e0b' },
-        { title: '借位幫手', desc: '劃線借10', emoji: '🪄', bg: '#e0f2fe', border: '#0284c7' },
+        { title: '加減高手', desc: '運算一把罩', emoji: '🌱', bg: '#dcfce7', border: '#16a34a' },
+        { title: '進位達人', desc: '進位超清楚', emoji: '⚡', bg: '#fef3c7', border: '#f59e0b' },
+        { title: '借位幫手', desc: '借10很熟練', emoji: '🪄', bg: '#e0f2fe', border: '#0284c7' },
       ];
     } else if (mode === 'adv_carry' || mode === 'carry') {
       badges = [
         { title: '連續進位', desc: '個十位進1', emoji: '⚡', bg: '#fef3c7', border: '#f59e0b' },
-        { title: '突破獎', desc: '滿十進位', emoji: '🔥', bg: '#fee2e2', border: '#ef4444' },
-        { title: '守護者', desc: '步驟全對', emoji: '🌟', bg: '#fef9c3', border: '#eab308' },
+        { title: '突破大師', desc: '算數飛快', emoji: '🔥', bg: '#fee2e2', border: '#ef4444' },
+        { title: '守護之星', desc: '全都答對', emoji: '🌟', bg: '#fef9c3', border: '#eab308' },
       ];
     } else if (mode === 'adv_borrow' || mode === 'borrow') {
       badges = [
-        { title: '零的魔法', desc: '跨位借位', emoji: '✨', bg: '#f3e8ff', border: '#9333ea' },
-        { title: '退位專家', desc: '劃線標準', emoji: '🪄', bg: '#e0f2fe', border: '#0284c7' },
-        { title: '破解王', desc: '克服難題', emoji: '🛡️', bg: '#ecfdf5', border: '#10b981' },
+        { title: '借位王者', desc: '遇到0也不怕', emoji: '✨', bg: '#f3e8ff', border: '#9333ea' },
+        { title: '退位專家', desc: '步驟很清晰', emoji: '🪄', bg: '#e0f2fe', border: '#0284c7' },
+        { title: '闖關神童', desc: '克服難題', emoji: '🛡️', bg: '#ecfdf5', border: '#10b981' },
       ];
     }
 
     const itemW = (width - 48 - 12) / 3;
     badges.forEach((b, idx) => {
       const bx = 24 + idx * (itemW + 6);
-      const by = 252;
-      const bh = 110;
+      const by = 274;
+      const bh = 106;
 
       ctx.fillStyle = b.bg;
       this.roundRect(ctx, bx, by, itemW, bh, 12);
@@ -219,11 +219,11 @@ export class ResultScene extends Scene {
       ctx.font = '24px "Fredoka", sans-serif';
       ctx.fillText(b.emoji, bx + itemW / 2, by + 26);
 
-      ctx.font = 'bold 11px "Noto Sans TC", sans-serif';
+      ctx.font = 'bold 12px "Bpmf Huninn", "Noto Sans TC", sans-serif';
       ctx.fillStyle = '#1e293b';
       ctx.fillText(b.title, bx + itemW / 2, by + 56);
 
-      ctx.font = '9px "Noto Sans TC", sans-serif';
+      ctx.font = '10px "Bpmf Huninn", "Noto Sans TC", sans-serif';
       ctx.fillStyle = '#64748b';
       ctx.fillText(b.desc, bx + itemW / 2, by + 78);
     });
@@ -250,11 +250,11 @@ export class ResultScene extends Scene {
     ctx.fill();
 
     ctx.shadowColor = 'transparent';
-    ctx.font = 'bold 16px "Noto Sans TC", sans-serif';
+    ctx.font = 'bold 16px "Bpmf Huninn", "Noto Sans TC", sans-serif';
     ctx.fillStyle = '#ffffff';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText('🔄 再挑戰一輪 (新題目)', 0, 0);
+    ctx.fillText('🔄 再玩一次', 0, 0);
     ctx.restore();
 
     // 2. Return to Menu Button
@@ -271,11 +271,11 @@ export class ResultScene extends Scene {
     this.roundRect(ctx, -mb.width / 2, -mb.height / 2, mb.width, mb.height, mb.height / 2);
     ctx.stroke();
 
-    ctx.font = 'bold 14px "Noto Sans TC", sans-serif';
+    ctx.font = 'bold 14px "Bpmf Huninn", "Noto Sans TC", sans-serif';
     ctx.fillStyle = '#475569';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText('🏠 返回主選單', 0, 0);
+    ctx.fillText('🏠 回主選單', 0, 0);
     ctx.restore();
   }
 

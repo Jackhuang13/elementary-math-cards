@@ -30,11 +30,11 @@ export function buildAdditionReplaySteps(problem: {
       steps.push({
         stepIndex: stepCounter++,
         columnIndex: colIdx,
-        title: `【${placeName}】落下進位`,
-        description: `${placeName}無其他加數，直接將進位來的 ${carryIn} 落下填入答案欄！`,
+        title: `【${placeName}】寫下進位`,
+        description: `${placeName}沒有其他數字，直接把進位的 ${carryIn} 寫下來！`,
         highlightColumns: [colIdx],
         actionType: 'write_answer',
-        mathFormula: `進位 ${carryIn} ➔ 填寫 ${carryIn}`,
+        mathFormula: `進位的 ${carryIn} ➔ 寫下 ${carryIn}`,
         targetSlot: 'answer',
         targetValue: carryIn,
       });
@@ -45,8 +45,8 @@ export function buildAdditionReplaySteps(problem: {
     steps.push({
       stepIndex: stepCounter++,
       columnIndex: colIdx,
-      title: `計算【${placeName}】`,
-      description: `首先聚焦在${placeName}進行計算。`,
+      title: `算算【${placeName}】`,
+      description: `先來算【${placeName}】！`,
       highlightColumns: [colIdx],
       actionType: 'focus',
       mathFormula: carryIn > 0 ? `${a} + ${b} + (進位 ${carryIn})` : `${a} + ${b}`,
@@ -58,12 +58,12 @@ export function buildAdditionReplaySteps(problem: {
 
     // 2. Mark carry if any
     if (carryOut > 0) {
-      const nextColName = cols[colIdx + 1]?.placeName || '下一位';
+      const nextColName = cols[colIdx + 1]?.placeName || '左邊';
       steps.push({
         stepIndex: stepCounter++,
         columnIndex: colIdx,
-        title: `${placeName}滿十進一！`,
-        description: `${placeName}加總為 ${sum}，滿十要向【${nextColName}】進 1！在上方標記「＋1」。`,
+        title: `${placeName}滿 10 進 1！`,
+        description: `${placeName}相加是 ${sum}，滿 10 囉！向左邊【${nextColName}】進 1，記「＋1」。`,
         highlightColumns: [colIdx, colIdx + 1],
         actionType: 'carry_mark',
         mathFormula: `${sum} ≥ 10  ➔ 向${nextColName}進 1`,
@@ -77,10 +77,10 @@ export function buildAdditionReplaySteps(problem: {
       stepIndex: stepCounter++,
       columnIndex: colIdx,
       title: `寫下【${placeName}】答案`,
-      description: `${placeName}留下的個位數是 ${ansDigit}，填入下方答案欄。`,
+      description: `【${placeName}】留下個位數 ${ansDigit}，寫在答案格子裡。`,
       highlightColumns: [colIdx],
       actionType: 'write_answer',
-      mathFormula: `${placeName} 答案寫入：${ansDigit}`,
+      mathFormula: `${placeName} 答案：${ansDigit}`,
       targetSlot: 'answer',
       targetValue: ansDigit,
     });
@@ -117,8 +117,8 @@ export function buildSubtractionReplaySteps(problem: {
     steps.push({
       stepIndex: stepCounter++,
       columnIndex: colIdx,
-      title: `計算【${placeName}】`,
-      description: `觀察${placeName}：被減數為 ${a}，減數為 ${b}。`,
+      title: `算算【${placeName}】`,
+      description: `看【${placeName}】：${a} 比 ${b} 小，不夠減！`,
       highlightColumns: [colIdx],
       actionType: 'focus',
       mathFormula: `${a} - ${b}`,
@@ -134,9 +134,6 @@ export function buildSubtractionReplaySteps(problem: {
 
       if (donorIdx < currentA.length) {
         // Step-by-step unrolling borrow from donorIdx down to colIdx
-        // Example: donor is hundreds (index 2), col is ones (index 0).
-        // Hundreds (5) becomes 4, gives 10 to tens (index 1), so tens (0) becomes 10.
-        // Then tens (10) becomes 9, gives 10 to ones (index 0), so ones becomes a + 10.
         for (let k = donorIdx; k > colIdx; k--) {
           const donorColName = cols[k].placeName;
           const receiverColName = cols[k - 1].placeName;
@@ -149,7 +146,7 @@ export function buildSubtractionReplaySteps(problem: {
             stepIndex: stepCounter++,
             columnIndex: k,
             title: `向【${donorColName}】借位！`,
-            description: `${receiverColName}不夠減，向【${donorColName}】借 1。將 ${oldVal} 劃掉改寫為 ${newVal}！`,
+            description: `不夠減！向【${donorColName}】借 1，把 ${oldVal} 劃掉改寫成 ${newVal}！`,
             highlightColumns: [k, k - 1],
             actionType: 'borrow_scratch',
             mathFormula: `【${donorColName}】${oldVal} ➔ 劃掉變 ${newVal}`,
@@ -164,8 +161,8 @@ export function buildSubtractionReplaySteps(problem: {
           steps.push({
             stepIndex: stepCounter++,
             columnIndex: k - 1,
-            title: `【${receiverColName}】獲得 10！`,
-            description: `借到 1 個高位數相當於 10！${receiverColName}上方標記「＋10」，現在有 ${receivedVal}。`,
+            title: `【${receiverColName}】得到 10！`,
+            description: `借到了 10！上方記「＋10」，現在有 ${receivedVal} 囉！`,
             highlightColumns: [k - 1],
             actionType: 'borrow_receive',
             mathFormula: `【${receiverColName}】得到 10 ➔ 現有 ${receivedVal}`,
@@ -183,8 +180,8 @@ export function buildSubtractionReplaySteps(problem: {
     steps.push({
       stepIndex: stepCounter++,
       columnIndex: colIdx,
-      title: `【${placeName}】相減運算`,
-      description: `現在${placeName}為 ${finalA}，減去 ${b} 等於 ${diff}。`,
+      title: `【${placeName}】相減`,
+      description: `現在算式是 ${finalA} - ${b} = ${diff}！`,
       highlightColumns: [colIdx],
       actionType: 'calc',
       mathFormula: `${finalA} - ${b} = ${diff}`,
@@ -194,7 +191,7 @@ export function buildSubtractionReplaySteps(problem: {
       stepIndex: stepCounter++,
       columnIndex: colIdx,
       title: `寫下【${placeName}】答案`,
-      description: `將計算結果 ${diff} 填入【${placeName}】答案欄。`,
+      description: `把答案 ${diff} 寫在【${placeName}】格子裡！`,
       highlightColumns: [colIdx],
       actionType: 'write_answer',
       mathFormula: `${placeName} 答案：${diff}`,

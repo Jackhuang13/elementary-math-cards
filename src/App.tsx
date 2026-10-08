@@ -71,6 +71,13 @@ export default function App() {
     engine.sceneManager.changeScene('menu');
     engine.start();
 
+    // Wait for custom fonts to load so canvas text renders with Bpmf Huninn
+    if (typeof document !== 'undefined' && document.fonts) {
+      document.fonts.ready.then(() => {
+        engine.resize();
+      });
+    }
+
     // Visual Viewport & Window Resize Handler for mobile devices
     const handleViewportResize = () => {
       if (typeof window !== 'undefined') {
@@ -192,22 +199,22 @@ export default function App() {
       const isOverflow = Boolean(col.isOverflowColumn || (col.placePower >= prob.digitCount && col.digitA === 0 && col.digitB === 0));
 
       if (isOverflow) {
-        gameScene.hintMessage = `💡 提示：【${col.placeName}】無其他加數，直接落下進位來的 1 喔！`;
+        gameScene.hintMessage = `💡 提示：【${col.placeName}】沒有其他數字，直接把進位的 1 寫下來！`;
       } else if (sum >= 10 && !col.userCarryMarked) {
-        gameScene.hintMessage = `💡 提示：${col.digitA} + ${col.digitB} = ${col.digitA + col.digitB}，滿十了！記得按「＋1 進位」按鈕喔！`;
+        gameScene.hintMessage = `💡 提示：${col.digitA} + ${col.digitB} = ${col.digitA + col.digitB}，滿 10 囉！記得按「＋1 進位」！`;
       } else {
-        gameScene.hintMessage = `💡 提示：【${col.placeName}】${col.digitA} + ${col.digitB}${col.userCarryMarked ? ' + 1' : ''} = ${sum}，填寫 ${sum % 10} 喔！`;
+        gameScene.hintMessage = `💡 提示：【${col.placeName}】${col.digitA} + ${col.digitB}${col.userCarryMarked ? ' + 1' : ''} = ${sum}，答案寫 ${sum % 10} 喔！`;
       }
     } else {
       if (col.requiresBorrow && !col.userReceivedBorrow) {
         if (col.isZeroPassThrough) {
-          gameScene.hintMessage = `🪄 提示：十位是 0，先向百位借 10，十位變成 10 後，再借 1 給個位（十位變 9）！`;
+          gameScene.hintMessage = `🪄 提示：中間是 0，先向更高位借 10，再借給個位！`;
         } else {
-          gameScene.hintMessage = `💡 提示：${col.digitA} 不夠減 ${col.digitB}，點擊隔壁數字或按「向左借 10」吧！`;
+          gameScene.hintMessage = `💡 提示：${col.digitA} 不夠減 ${col.digitB}，按「借 10」向左邊借！`;
         }
       } else {
         const minuend = col.userReceivedBorrow ? col.digitA + 10 : col.digitA;
-        gameScene.hintMessage = `💡 提示：現在算式是 ${minuend} - ${col.digitB} = ${col.correctAnswerDigit}！`;
+        gameScene.hintMessage = `💡 提示：現在是 ${minuend} - ${col.digitB} = ${col.correctAnswerDigit}，填上答案吧！`;
       }
     }
     gameScene.syncState();
@@ -288,31 +295,16 @@ export default function App() {
         />
       )}
 
-      {/* Core HTML5 Canvas 2D Viewport: Responsive full-screen for Menu/Result, aspect-ratio locked for Game */}
+      {/* Core HTML5 Canvas 2D Viewport: Uniform aspect-ratio scaling without squishing */}
       <div
         className={`relative flex-1 min-h-0 w-full flex items-center justify-center overflow-hidden ${
-          activeSceneName === 'game' ? 'max-w-md px-2 py-0.5' : 'max-w-xl md:max-w-2xl w-full h-full p-0'
+          activeSceneName === 'game' ? 'max-w-md px-1 py-0.5' : 'max-w-md w-full h-full p-0'
         }`}
       >
-        <div
-          style={{
-            aspectRatio: activeSceneName === 'game' ? '400 / 330' : undefined,
-            width: '100%',
-            height: '100%',
-            maxHeight: '100%',
-            maxWidth: '100%',
-          }}
-          className="relative flex items-center justify-center overflow-hidden w-full h-full"
-        >
-          <canvas
-            ref={canvasRef}
-            style={{
-              width: '100%',
-              height: '100%',
-            }}
-            className="block touch-none cursor-pointer w-full h-full"
-          />
-        </div>
+        <canvas
+          ref={canvasRef}
+          className="block touch-none cursor-pointer w-full h-full max-w-full max-h-full"
+        />
       </div>
 
       {/* Kid-friendly On-Screen Keypad with Check Answer (visible during game scene) */}

@@ -75,28 +75,24 @@ export class GameEngine {
     this.canvas.height = Math.round(rect.height * dpr);
 
     const cur = this.sceneManager.getCurrentScene();
-    const isGame = cur?.name === 'game';
+    let vw = 400;
+    let vh = 330;
 
-    if (isGame) {
-      // In Game scene: card is 380x310, centered in available space
-      const vw = 400;
-      const vh = 330;
-      const scale = Math.min(rect.width / vw, rect.height / vh);
-      this.scale = scale;
-      this.offsetX = Math.round((rect.width - vw * scale) / 2);
-      this.offsetY = Math.round((rect.height - vh * scale) / 2);
-      this.virtualWidth = vw;
-      this.virtualHeight = vh;
-    } else {
-      // In Menu & Result scene: fill full available screen responsively!
-      const vw = 420;
-      const scale = rect.width / vw;
-      this.scale = scale;
-      this.offsetX = 0;
-      this.offsetY = 0;
-      this.virtualWidth = vw;
-      this.virtualHeight = Math.round(rect.height / scale);
+    if (cur?.name === 'menu') {
+      vw = 400;
+      vh = 620;
+    } else if (cur?.name === 'result') {
+      vw = 400;
+      vh = 580;
     }
+
+    // Uniform scale preserving 1:1 pixel aspect ratio (no squishing/stretching)
+    const scale = Math.min(rect.width / vw, rect.height / vh);
+    this.scale = scale;
+    this.offsetX = Math.round((rect.width - vw * scale) / 2);
+    this.offsetY = Math.round((rect.height - vh * scale) / 2);
+    this.virtualWidth = vw;
+    this.virtualHeight = vh;
   }
 
   private bindEvents(): void {
@@ -161,23 +157,21 @@ export class GameEngine {
     this.ctx.clearRect(0, 0, this.clientWidth, this.clientHeight);
 
     const cur = this.sceneManager.getCurrentScene();
-    const isGame = cur?.name === 'game';
     let vw = 400;
     let vh = 330;
 
-    if (isGame) {
-      const scale = Math.min(this.clientWidth / vw, this.clientHeight / vh);
-      this.scale = scale;
-      this.offsetX = Math.round((this.clientWidth - vw * scale) / 2);
-      this.offsetY = Math.round((this.clientHeight - vh * scale) / 2);
-    } else {
-      const scale = this.clientWidth / vw;
-      this.scale = scale;
-      this.offsetX = 0;
-      this.offsetY = 0;
-      vh = Math.round(this.clientHeight / scale);
+    if (cur?.name === 'menu') {
+      vw = 400;
+      vh = 620;
+    } else if (cur?.name === 'result') {
+      vw = 400;
+      vh = 580;
     }
 
+    const scale = Math.min(this.clientWidth / vw, this.clientHeight / vh);
+    this.scale = scale;
+    this.offsetX = Math.round((this.clientWidth - vw * scale) / 2);
+    this.offsetY = Math.round((this.clientHeight - vh * scale) / 2);
     this.virtualWidth = vw;
     this.virtualHeight = vh;
 

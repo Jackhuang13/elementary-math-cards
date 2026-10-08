@@ -10,8 +10,8 @@ import { soundManager } from '../engine/SoundManager';
 export class MenuScene extends Scene {
   public override readonly name = 'menu';
 
-  public override virtualWidth: number = 420;
-  public override virtualHeight: number = 650;
+  public override virtualWidth: number = 400;
+  public override virtualHeight: number = 620;
 
   public selectedMode: GameMode = 'grand_master';
   public selectedDigitCount: DigitCount = 3;
@@ -19,50 +19,50 @@ export class MenuScene extends Scene {
 
   // Digit selection tabs
   private digitTabs = [
-    { count: 2 as DigitCount, label: '二位數', sub: '個~十位' },
-    { count: 3 as DigitCount, label: '三位數', sub: '個~百位' },
-    { count: 4 as DigitCount, label: '四位數', sub: '個~千位' },
+    { count: 2 as DigitCount, label: '二位數', sub: '個、十位' },
+    { count: 3 as DigitCount, label: '三位數', sub: '到百位' },
+    { count: 4 as DigitCount, label: '四位數', sub: '到千位' },
   ];
 
   // Mode cards
   private modeButtons = [
     {
       mode: 'basic' as GameMode,
-      title: '🌱 普通直式加減法',
-      subtitle: '單次進位與借位 · 扎實數學基底',
-      tag: '基礎必練',
+      title: '🌱 基礎加減法',
+      subtitle: '進位與借位練習 · 簡單好上手',
+      tag: '入門',
       tagBg: '#dcfce7',
       tagColor: '#15803d',
     },
     {
       mode: 'adv_carry' as GameMode,
-      title: '⚡ 進階連續進位加法',
-      subtitle: '連續滿十進位 · 專攻個位十位連續進 1',
-      tag: '連續進位',
+      title: '⚡ 連續進位加法',
+      subtitle: '滿 10 就進位 · 個位十位連續進 1',
+      tag: '加法',
       tagBg: '#fef3c7',
       tagColor: '#b45309',
     },
     {
       mode: 'adv_borrow' as GameMode,
-      title: '💧 進階連續借位減法',
-      subtitle: '連續退位專攻 · 熟練步步向高位借位',
-      tag: '連續借位',
+      title: '💧 連續借位減法',
+      subtitle: '不夠減就借位 · 一步一步借 10',
+      tag: '減法',
       tagBg: '#e0f2fe',
       tagColor: '#0369a1',
     },
     {
       mode: 'borrow' as GameMode,
-      title: '👑 遇 0 跨位連續借位',
-      subtitle: '遇 0 大魔王 · 跨位借 10 再借給隔壁',
-      tag: '大魔王關',
+      title: '👑 遇 0 大挑戰',
+      subtitle: '隔壁是 0 · 向更高位借 10 再借過來',
+      tag: '魔王',
       tagBg: '#fee2e2',
       tagColor: '#b91c1c',
     },
     {
       mode: 'grand_master' as GameMode,
-      title: '🎲 全能階梯綜合闖關',
-      subtitle: '4 張漸進小卡 · 單次進退 ➔ 連續進退',
-      tag: '綜合推薦',
+      title: '🎲 冒險全能闖關',
+      subtitle: '4 張小卡 · 一步步越來越厲害',
+      tag: '推薦',
       tagBg: '#f3e8ff',
       tagColor: '#7e22ce',
     },
@@ -216,14 +216,14 @@ export class MenuScene extends Scene {
 
     // Main Title
     ctx.shadowColor = 'transparent';
-    ctx.font = `900 ${layout.titleFontSize}px "Noto Sans TC", "Fredoka", sans-serif`;
+    ctx.font = `900 ${layout.titleFontSize}px "Bpmf Huninn", "Noto Sans TC", "Fredoka", sans-serif`;
     ctx.fillStyle = '#0f172a';
     ctx.fillText('國小直式數學小卡冒險', cx, layout.titleY);
 
     // Subtitle
-    ctx.font = `600 ${layout.subFontSize}px "Noto Sans TC", sans-serif`;
+    ctx.font = `600 ${layout.subFontSize}px "Bpmf Huninn", "Noto Sans TC", sans-serif`;
     ctx.fillStyle = '#475569';
-    ctx.fillText('自由填寫 · 自由進借位 · 三星素養評量', cx, layout.titleY + 19);
+    ctx.fillText('動手算一算 · 闖關集星星 ⭐', cx, layout.titleY + 19);
 
     ctx.restore();
   }
@@ -234,10 +234,10 @@ export class MenuScene extends Scene {
     layout: ReturnType<typeof this.getLayout>
   ) {
     ctx.save();
-    ctx.font = `bold ${layout.modeTitleFontSize}px "Noto Sans TC", sans-serif`;
+    ctx.font = `bold ${layout.modeTitleFontSize}px "Bpmf Huninn", "Noto Sans TC", sans-serif`;
     ctx.fillStyle = '#1e293b';
     ctx.textAlign = 'left';
-    ctx.fillText('1. 選擇數字位數：', 22, layout.digitLabelY);
+    ctx.fillText('1. 選擇位數：', 22, layout.digitLabelY);
 
     const { tabW, tabH, digitStartY } = layout;
 
@@ -260,12 +260,12 @@ export class MenuScene extends Scene {
         ctx.fill();
 
         ctx.fillStyle = '#ffffff';
-        ctx.font = `bold ${layout.tabLabelSize}px "Noto Sans TC", sans-serif`;
+        ctx.font = `bold ${layout.tabLabelSize}px "Bpmf Huninn", "Noto Sans TC", sans-serif`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText(tab.label, tabX + tabW / 2, digitStartY + tabH * 0.38);
 
-        ctx.font = `bold ${layout.tabSubSize}px "Noto Sans TC", sans-serif`;
+        ctx.font = `bold ${layout.tabSubSize}px "Bpmf Huninn", "Noto Sans TC", sans-serif`;
         ctx.fillStyle = '#ffedd5';
         ctx.fillText(tab.sub, tabX + tabW / 2, digitStartY + tabH * 0.72);
       } else {
@@ -283,12 +283,12 @@ export class MenuScene extends Scene {
         ctx.stroke();
 
         ctx.fillStyle = '#334155';
-        ctx.font = `bold ${layout.tabLabelSize}px "Noto Sans TC", sans-serif`;
+        ctx.font = `bold ${layout.tabLabelSize}px "Bpmf Huninn", "Noto Sans TC", sans-serif`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText(tab.label, tabX + tabW / 2, digitStartY + tabH * 0.38);
 
-        ctx.font = `500 ${layout.tabSubSize}px "Noto Sans TC", sans-serif`;
+        ctx.font = `500 ${layout.tabSubSize}px "Bpmf Huninn", "Noto Sans TC", sans-serif`;
         ctx.fillStyle = '#64748b';
         ctx.fillText(tab.sub, tabX + tabW / 2, digitStartY + tabH * 0.72);
       }
@@ -303,10 +303,10 @@ export class MenuScene extends Scene {
     layout: ReturnType<typeof this.getLayout>
   ) {
     ctx.save();
-    ctx.font = `bold ${layout.modeTitleFontSize}px "Noto Sans TC", sans-serif`;
+    ctx.font = `bold ${layout.modeTitleFontSize}px "Bpmf Huninn", "Noto Sans TC", sans-serif`;
     ctx.fillStyle = '#1e293b';
     ctx.textAlign = 'left';
-    ctx.fillText('2. 選擇關卡模式：', 22, layout.modeLabelY);
+    ctx.fillText('2. 選擇關卡：', 22, layout.modeLabelY);
 
     const { btnX, btnW, itemH, itemGap, modeStartY } = layout;
 
@@ -360,17 +360,17 @@ export class MenuScene extends Scene {
       // Title
       ctx.textAlign = 'left';
       ctx.textBaseline = 'middle';
-      ctx.font = `bold ${layout.modeTitleFontSize}px "Noto Sans TC", sans-serif`;
+      ctx.font = `bold ${layout.modeTitleFontSize}px "Bpmf Huninn", "Noto Sans TC", sans-serif`;
       ctx.fillStyle = isSelected ? '#0f172a' : '#334155';
       ctx.fillText(item.title, btnX + 34, btnY + itemH * 0.36);
 
       // Subtitle
-      ctx.font = `500 ${layout.modeSubFontSize}px "Noto Sans TC", sans-serif`;
+      ctx.font = `500 ${layout.modeSubFontSize}px "Bpmf Huninn", "Noto Sans TC", sans-serif`;
       ctx.fillStyle = isSelected ? '#b45309' : '#64748b';
       ctx.fillText(item.subtitle, btnX + 34, btnY + itemH * 0.72);
 
       // Badge on right
-      ctx.font = `bold ${layout.modeTagFontSize}px "Noto Sans TC", sans-serif`;
+      ctx.font = `bold ${layout.modeTagFontSize}px "Bpmf Huninn", "Noto Sans TC", sans-serif`;
       const tagTextW = ctx.measureText(item.tag).width;
       const tagW = tagTextW + 14;
       const tagX = btnX + btnW - tagW - 12;
@@ -415,11 +415,11 @@ export class MenuScene extends Scene {
     ctx.fill();
 
     ctx.shadowColor = 'transparent';
-    ctx.font = `bold ${startBtnFontSize}px "Noto Sans TC", "Fredoka", sans-serif`;
+    ctx.font = `bold ${startBtnFontSize}px "Bpmf Huninn", "Noto Sans TC", "Fredoka", sans-serif`;
     ctx.fillStyle = '#ffffff';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText('🚀 開始 4 卡數學冒險', 0, 0);
+    ctx.fillText('🚀 開始冒險！', 0, 0);
 
     ctx.restore();
   }

@@ -149,37 +149,37 @@ export const ReplayModal: React.FC<ReplayModalProps> = ({ problem, onClose }) =>
   const activeColumns = renderedState();
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/80 backdrop-blur-md p-4 animate-in fade-in">
-      <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col border-4 border-amber-300">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/80 backdrop-blur-md p-2 sm:p-4 animate-in fade-in font-['Bpmf_Huninn']">
+      <div className="w-full max-w-sm sm:max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col border-4 border-amber-300 max-h-[92vh] font-['Bpmf_Huninn']">
         {/* Header */}
-        <div className="bg-gradient-to-r from-amber-500 to-orange-500 px-5 py-3 text-white flex items-center justify-between">
+        <div className="bg-gradient-to-r from-amber-500 to-orange-500 px-4 sm:px-5 py-2.5 sm:py-3 text-white flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Film className="w-5 h-5 text-amber-200" />
-            <h3 className="font-black text-lg">🎬 直式解題動畫演示</h3>
+            <Film className="w-4 h-4 sm:w-5 sm:h-5 text-amber-200" />
+            <h3 className="font-bold text-base sm:text-lg">🎬 直式解題小老師</h3>
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-full bg-black/20 hover:bg-black/30 flex items-center justify-center transition-colors"
+            className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-black/20 hover:bg-black/30 flex items-center justify-center transition-colors cursor-pointer"
           >
-            <X className="w-5 h-5 text-white" />
+            <X className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
           </button>
         </div>
 
         {/* Step Info & Mascot Banner */}
-        <div className="bg-amber-50 px-5 py-3 border-b border-amber-200">
-          <div className="flex items-center justify-between text-xs text-amber-800 font-bold mb-1">
+        <div className="bg-amber-50 px-4 sm:px-5 py-2 sm:py-2.5 border-b border-amber-200">
+          <div className="flex items-center justify-between text-xs text-amber-800 font-bold mb-0.5">
             <span>步驟 {currentStepIndex + 1} / {steps.length}</span>
-            <span className="bg-amber-200 px-2 py-0.5 rounded-full">
-              {currentStep?.title || '解題演示'}
+            <span className="bg-amber-200 px-2 py-0.5 rounded-full text-[11px]">
+              {currentStep?.title || '解題過程'}
             </span>
           </div>
-          <p className="text-sm font-semibold text-slate-800 leading-snug">
+          <p className="text-xs sm:text-sm font-bold text-slate-800 leading-snug">
             {currentStep?.description}
           </p>
         </div>
 
         {/* Animated Notebook Viewport */}
-        <div className="p-5 flex-1 flex flex-col items-center justify-center bg-radial from-amber-50/50 via-white to-slate-50 min-h-[300px]">
+        <div className="p-3 sm:p-5 flex-1 flex flex-col items-center justify-center bg-radial from-amber-50/50 via-white to-slate-50 min-h-[220px] overflow-y-auto">
           {/* Math Card Display */}
           <div className="relative w-full max-w-[340px] bg-amber-50/30 border-2 border-dashed border-amber-200 rounded-2xl p-4 shadow-inner">
             {/* Column Headers */}
@@ -317,13 +317,14 @@ export const ReplayModal: React.FC<ReplayModalProps> = ({ problem, onClose }) =>
           </div>
 
           {/* Action Formula Banner */}
+          {/* Mathematical Process Step Box */}
           {currentStep?.mathFormula && (
             <div
               ref={formulaBoxRef}
-              className="mt-4 px-4 py-2 bg-amber-500/10 border border-amber-300 text-amber-900 rounded-2xl text-center"
+              className="mt-3 px-3 py-1.5 bg-amber-500/10 border border-amber-300 text-amber-900 rounded-xl text-center max-w-[320px] w-full"
             >
-              <span className="text-xs font-bold text-amber-700 block mb-0.5">運算思維過程：</span>
-              <span className="text-base font-black tracking-wider text-amber-950">
+              <span className="text-[11px] font-bold text-amber-700 block mb-0.5">怎麼算呢：</span>
+              <span className="text-sm sm:text-base font-bold tracking-wider text-amber-950">
                 {currentStep.mathFormula}
               </span>
             </div>
@@ -331,7 +332,7 @@ export const ReplayModal: React.FC<ReplayModalProps> = ({ problem, onClose }) =>
         </div>
 
         {/* Step Progress Dots */}
-        <div className="flex justify-center gap-1.5 py-2 bg-slate-50 border-t border-slate-200">
+        <div className="flex justify-center gap-1.5 py-1.5 bg-slate-50 border-t border-slate-200">
           {steps.map((_, idx) => (
             <button
               key={`dot-${idx}`}
@@ -339,9 +340,9 @@ export const ReplayModal: React.FC<ReplayModalProps> = ({ problem, onClose }) =>
                 setCurrentStepIndex(idx);
                 setIsPlaying(false);
               }}
-              className={`h-2 rounded-full transition-all ${
+              className={`h-2 rounded-full transition-all cursor-pointer ${
                 idx === currentStepIndex
-                  ? 'w-6 bg-amber-500'
+                  ? 'w-5 bg-amber-500'
                   : idx < currentStepIndex
                   ? 'w-2 bg-emerald-400'
                   : 'w-2 bg-slate-300'
@@ -351,46 +352,46 @@ export const ReplayModal: React.FC<ReplayModalProps> = ({ problem, onClose }) =>
         </div>
 
         {/* Controls Footer */}
-        <div className="p-4 bg-white border-t border-slate-200 flex items-center justify-between">
+        <div className="px-3 sm:px-4 py-2 sm:py-3 bg-white border-t border-slate-200 flex items-center justify-between font-['Bpmf_Huninn']">
           <button
             onClick={handleRestart}
-            className="flex items-center gap-1 text-xs font-bold text-slate-600 hover:text-slate-900 p-2 rounded-xl hover:bg-slate-100"
+            className="flex items-center gap-1 text-xs font-bold text-slate-600 hover:text-slate-900 p-1.5 rounded-xl hover:bg-slate-100 cursor-pointer font-['Bpmf_Huninn']"
           >
-            <RotateCcw className="w-4 h-4" />
+            <RotateCcw className="w-3.5 h-3.5" />
             重播
           </button>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2">
             <button
               onClick={handlePrev}
               disabled={currentStepIndex === 0}
-              className="w-10 h-10 rounded-2xl border border-slate-200 disabled:opacity-30 hover:bg-slate-100 flex items-center justify-center"
+              className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl border border-slate-200 disabled:opacity-30 hover:bg-slate-100 flex items-center justify-center cursor-pointer"
             >
-              <SkipBack className="w-4 h-4 text-slate-700" />
+              <SkipBack className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-700" />
             </button>
 
             <button
               onClick={() => setIsPlaying(!isPlaying)}
-              className="w-12 h-12 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white flex items-center justify-center shadow-lg shadow-amber-500/25 transition-transform active:scale-95"
+              className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-amber-500 hover:bg-amber-600 text-white flex items-center justify-center shadow-md shadow-amber-500/25 transition-transform active:scale-95 cursor-pointer"
             >
-              {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5 ml-0.5" />}
+              {isPlaying ? <Pause className="w-4 h-4 sm:w-5 sm:h-5" /> : <Play className="w-4 h-4 sm:w-5 sm:h-5 ml-0.5" />}
             </button>
 
             <button
               onClick={handleNext}
               disabled={currentStepIndex === steps.length - 1}
-              className="w-10 h-10 rounded-2xl border border-slate-200 disabled:opacity-30 hover:bg-slate-100 flex items-center justify-center"
+              className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl border border-slate-200 disabled:opacity-30 hover:bg-slate-100 flex items-center justify-center cursor-pointer"
             >
-              <SkipForward className="w-4 h-4 text-slate-700" />
+              <SkipForward className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-700" />
             </button>
           </div>
 
           <button
             onClick={onClose}
-            className="bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold px-3 py-2 rounded-xl flex items-center gap-1 shadow-md shadow-emerald-500/20"
+            className="bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl flex items-center gap-1 shadow-sm shadow-emerald-500/20 cursor-pointer font-['Bpmf_Huninn']"
           >
-            <CheckCircle className="w-4 h-4" />
-            我懂了
+            <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            我懂了！
           </button>
         </div>
       </div>

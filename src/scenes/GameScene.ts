@@ -81,13 +81,13 @@ export class GameScene extends Scene {
 
   private setInitialHint(prob: MathProblem) {
     if (prob.type === 'add') {
-      this.hintMessage = '💡 加法小撇步：從右邊【個位】開始算起，相加滿 10 可點擊「＋1」進位標記，自由填寫答案！';
+      this.hintMessage = '💡 從右邊【個位】開始算，滿 10 記得按「＋1 進位」喔！';
     } else {
       const isZeroPass = prob.columns.some((c) => c.isZeroPassThrough);
       if (isZeroPass) {
-        this.hintMessage = '🪄 挑戰提示：個位不夠減！隔壁是 0，先向更高位借 10，點擊數字可自由劃線借位或取消！';
+        this.hintMessage = '🪄 個位不夠減且隔壁是 0，先向更高位借 10 喔！';
       } else {
-        this.hintMessage = '💡 減法小撇步：從右邊【個位】算起，不夠減時點擊數字借位（再點一次可取消），自由填寫答案！';
+        this.hintMessage = '💡 從右邊【個位】開始算，不夠減就按「借 10」向左邊借！';
       }
     }
   }

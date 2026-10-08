@@ -56,12 +56,12 @@ export const PortraitOverlay: React.FC = () => {
         <Smartphone className="w-14 h-14" />
       </div>
 
-      <h2 className="text-2xl font-black mb-3 tracking-wide text-amber-300">
-        請轉回「直向模式」
+      <h2 className="text-2xl font-bold mb-3 tracking-wide text-amber-300">
+        請轉成直直的拿著喔！
       </h2>
 
       <p className="max-w-xs text-base leading-relaxed text-slate-200 font-medium">
-        為了最好的直式書寫與進位／借位運算體驗，請將裝置轉回直向模式喔！
+        直式加減法用直向畫面算最清楚、最好按！
       </p>
 
       <div className="mt-8 flex items-center gap-2 text-xs text-amber-200/80 bg-slate-800/80 px-4 py-2 rounded-full border border-slate-700">

@@ -66,14 +66,14 @@ export class MathCardSprite extends AnimatedSprite {
   private updateGeometry() {
     const numCols = this.problem.columns.length;
     if (numCols <= 2) {
-      this.colWidth = 76;
-      this.width = 340;
+      this.colWidth = 74;
+      this.width = 330;
     } else if (numCols === 3) {
-      this.colWidth = 70;
-      this.width = 380;
+      this.colWidth = 68;
+      this.width = 368;
     } else {
-      this.colWidth = 64;
-      this.width = 404;
+      this.colWidth = 60;
+      this.width = 376;
     }
     this.height = 320;
   }
@@ -339,13 +339,13 @@ export class MathCardSprite extends AnimatedSprite {
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
 
-    ctx.font = '900 13px "Noto Sans TC", sans-serif';
+    ctx.font = '900 13px "Bpmf Huninn", "Noto Sans TC", sans-serif';
     ctx.fillText('★ 算術大師 ★', 0, -20);
 
-    ctx.font = '900 24px "Fredoka", "Noto Sans TC", sans-serif';
+    ctx.font = '900 24px "Fredoka", "Bpmf Huninn", sans-serif';
     ctx.fillText('100', 0, 1);
 
-    ctx.font = 'bold 12px "Noto Sans TC", sans-serif';
+    ctx.font = 'bold 12px "Bpmf Huninn", "Noto Sans TC", sans-serif';
     ctx.fillText('太棒了！', 0, 22);
 
     ctx.restore();
@@ -360,7 +360,7 @@ export class MathCardSprite extends AnimatedSprite {
     ctx.fill();
 
     // Card Progress Tag
-    ctx.font = 'bold 15px "Fredoka", "Noto Sans TC", sans-serif';
+    ctx.font = 'bold 15px "Fredoka", "Bpmf Huninn", "Noto Sans TC", sans-serif';
     ctx.fillStyle = '#64748b';
     ctx.textAlign = 'left';
     ctx.textBaseline = 'middle';
@@ -372,7 +372,7 @@ export class MathCardSprite extends AnimatedSprite {
     const tagColor = this.problem.type === 'add' ? '#b45309' : '#0369a1';
 
     const tagText = this.problem.difficultyTag;
-    ctx.font = 'bold 13px "Noto Sans TC", sans-serif';
+    ctx.font = 'bold 13px "Bpmf Huninn", "Noto Sans TC", sans-serif';
     const textWidth = ctx.measureText(tagText).width;
 
     ctx.fillStyle = tagBg;
@@ -387,7 +387,7 @@ export class MathCardSprite extends AnimatedSprite {
 
   private drawColumnHeaders(ctx: CanvasRenderingContext2D) {
     ctx.save();
-    ctx.font = '600 13px "Noto Sans TC", sans-serif';
+    ctx.font = 'bold 14px "Bpmf Huninn", "Noto Sans TC", sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     const headerY = this.colHeaderY;
@@ -457,7 +457,7 @@ export class MathCardSprite extends AnimatedSprite {
           ctx.stroke();
           ctx.setLineDash([]);
 
-          ctx.font = 'bold 12px "Noto Sans TC", sans-serif';
+          ctx.font = 'bold 12px "Bpmf Huninn", "Noto Sans TC", sans-serif';
           ctx.fillStyle = '#d97706';
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
